@@ -1,15 +1,14 @@
 /*
  ============================================================================
  Nicolas Vlaeminch Div K
- Parcial 1 - Parte 1
  ============================================================================
  */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "libros.h"
 #include "input.h"
+#include "jugadores.h"
 #include "utn.h"
 #include "validaciones.h"
 #define CANTIDAD 5

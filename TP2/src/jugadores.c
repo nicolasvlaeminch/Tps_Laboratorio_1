@@ -4,10 +4,11 @@
  *  Created on: 1 oct 2022
  *      Author: Nicolas
  */
+#include "jugadores.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "libros.h"
 #include "input.h"
 #include "utn.h"
 #define CANTIDAD 5
@@ -15,7 +16,7 @@
 #define VACIO 0
 
 /**
- * \fn int AltaLibro(eLibro[], int, int)
+ * \fn int AltaJugador(eJugador[], int, int)
  * \brief
  *
  * \param libros
@@ -676,13 +677,15 @@ void ConfederacionMayorContratos(eJugador jugadores[], int tam) {
 					mayorContratos = acumuladorCaf;
 				}
 				else {
-					if (acumuladorOfc > acumuladorConmebol && acumuladorOfc > acumuladorUefa && acumuladorOfc > acumuladorAfc && acumuladorOfc > acumuladorConcacaf && acumuladorOfc > acumuladorCaf) {
+					if (acumuladorConcacaf > acumuladorConmebol && acumuladorConcacaf > acumuladorUefa && acumuladorConcacaf > acumuladorAfc && acumuladorConcacaf > acumuladorOfc && acumuladorConcacaf > acumuladorCaf) {
 						strcpy(confederacionMayorContrato, "CONCACAF");
-						mayorContratos = acumuladorOfc;
+						mayorContratos = acumuladorConcacaf;
 					}
 					else {
-						strcpy(confederacionMayorContrato, "OFC");
-						mayorContratos = acumuladorOfc;
+						if (acumuladorOfc > acumuladorConmebol && acumuladorOfc > acumuladorUefa && acumuladorOfc > acumuladorAfc && acumuladorOfc > acumuladorConcacaf && acumuladorOfc > acumuladorCaf) {
+							strcpy(confederacionMayorContrato, "OFC");
+							mayorContratos = acumuladorOfc;
+						}
 					}
 				}
 			}

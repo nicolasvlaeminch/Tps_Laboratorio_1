@@ -5,7 +5,7 @@
  *      Author: Nicolas
  */
 
-#ifndef LIBROS_H_
+#ifndef JUGADORES_H_
 
 typedef struct{
 	int id;
@@ -87,8 +87,8 @@ int TotalSalarios(eJugador jugadores[], int tam);
 void MostrarSalario(eJugador jugadores[], int tam);
 void ConfederacionMayorContratos(eJugador jugadores[], int tam);
 
-#define LIBROS_H_
+#define JUGADORES_H_
 
 
 
-#endif /* LIBROS_H_ */
+#endif /* JUGADORES_H_ */
