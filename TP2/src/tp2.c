@@ -51,7 +51,7 @@ int main(void) {
 		if(!respuestaMenu) {
 			switch(opcion) {
 			case 1:
-				if(AltaLibro(jugadores, CANTIDAD, codigoIncremental) == 1) {
+				if(AltaJugador(jugadores, CANTIDAD, codigoIncremental) == 1) {
 					printf("\nSe dio de alta correctamente\n\n");
 					codigoIncremental++;
 					system("pause");
@@ -64,7 +64,7 @@ int main(void) {
 			case 2:
 				if (VerificarLleno(jugadores,CANTIDAD) == 1) {
 					MostrarJugadores(jugadores, CANTIDAD);
-					if (BajaLibro(jugadores, CANTIDAD) == 1) {
+					if (Baja(jugadores, CANTIDAD) == 1) {
 						printf("\nDatos cargados con exito\n");
 						system("pause");
 					}
@@ -92,7 +92,7 @@ int main(void) {
 					if(!respuestaModificar) {
 						OrdenarImporteYTitulo(jugadores, CANTIDAD);
 						MostrarJugadores(jugadores, CANTIDAD);
-						if (ModificarLibro(jugadores, CANTIDAD, opcionModificar) == 1) {
+						if (ModificarJugador(jugadores, CANTIDAD, opcionModificar) == 1) {
 							printf("Modoficacion realizada con exito\n");
 							system("pause");
 						}

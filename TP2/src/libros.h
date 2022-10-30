@@ -70,16 +70,13 @@ typedef struct
 }eLibro;
 
 int BuscarLibre(eJugador jugadores[], int tam);
-int AltaLibro(eJugador jugadores[], int tam, int codigoAutoIncremental);
-int ModificarLibro(eJugador jugadores[], int tam, int opcion);
-int BuscarLibro(eJugador jugadores[], int tam, int codigoABuscar);
-int BajaLibro(eJugador jugadores[], int tam);
-int Sumatoria(eLibro libros[], int tam);
+int AltaJugador(eJugador jugadores[], int tam, int codigoAutoIncremental);
+int ModificarJugador(eJugador jugadores[], int tam, int opcion);
+int BuscarJugador(eJugador jugadores[], int tam, int codigoABuscar);
+int Baja(eJugador jugadores[], int tam);
 float Promedio(eJugador jugadores[], int tam);
 int SuperiorPromedio(eJugador jugadores[], int tam);
-int ContadorLibrosViejos(eLibro libros[], int tam);
 int VerificarLleno(eJugador jugadores[], int tam);
-void MostrarLibros(eJugador jugadores[], int tam);
 void OrdenarImporteYTitulo(eJugador jugadores[], int tam);
 void OrdenarDosCadenas(eJugador jugadores[], int tam);
 void MostrarJugadores(eJugador jugadores[], int tam);

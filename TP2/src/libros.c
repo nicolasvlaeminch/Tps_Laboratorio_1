@@ -30,7 +30,7 @@
  * funciones llamadas PedirEntero y PedirCadena guardando los datos ingresados en la
  * estructura con el indice guardado anteriormente si cumple con las verificaciones.
  */
-int AltaLibro(eJugador jugadores[], int tam, int codigoAutoIncremental) {
+int AltaJugador(eJugador jugadores[], int tam, int codigoAutoIncremental) {
 	int retorno;
 	int indice;
 	int opcion;
@@ -169,7 +169,7 @@ int BuscarLibre(eJugador jugadores[],int tam) {
  * por parametro existe, si existe retornara el indice de lo
  * contrario retornara -1.
  */
-int BuscarLibro(eJugador jugadores[],int tam,int codigoABuscar) {
+int BuscarJugador(eJugador jugadores[],int tam,int codigoABuscar) {
 	int indice;
 
 	indice = -1;
@@ -207,7 +207,7 @@ int BuscarLibro(eJugador jugadores[],int tam,int codigoABuscar) {
  * Retorna -1 no encuentra el libro y 1 si lo encuentra.
  *
  */
-int ModificarLibro(eJugador jugadores[], int tam, int opcion) {
+int ModificarJugador(eJugador jugadores[], int tam, int opcion) {
 	int codigoAModificar;
 	char nombreModificado[51];
 	int indiceAModificar;
@@ -220,7 +220,7 @@ int ModificarLibro(eJugador jugadores[], int tam, int opcion) {
 	retorno = -1;//Si no encontro el libro
 
 	codigoAModificar = PedirEntero("\nIngrese el codigo del jugador a modificar: ", "Error: Ingrese el codigo del jugador a modificar: ", 0, 3000);
-	indiceAModificar = BuscarLibro(jugadores, tam, codigoAModificar);
+	indiceAModificar = BuscarJugador(jugadores, tam, codigoAModificar);
 
 	if(indiceAModificar > -1)
 	{
@@ -377,13 +377,13 @@ int ModificarLibro(eJugador jugadores[], int tam, int opcion) {
  *
  *
  */
-int BajaLibro(eJugador jugadores[],int tam) {
-	int libroABorrar;
+int Baja(eJugador jugadores[],int tam) {
+	int idABorrar;
 	int retorno;
 	int indiceDelLibro;
 
-	libroABorrar = PedirEntero("\nIngrese el id del jugador a dar de baja: ", "ERROR: Ingrese un numero valido: ", 0, 3000);
-	indiceDelLibro = BuscarLibro(jugadores,tam,libroABorrar);
+	idABorrar = PedirEntero("\nIngrese el id del jugador a dar de baja: ", "ERROR: Ingrese un numero valido: ", 0, 3000);
+	indiceDelLibro = BuscarJugador(jugadores,tam,idABorrar);
 
 	retorno = 0;//Si no encontro al libro a borrar
 
@@ -393,52 +393,6 @@ int BajaLibro(eJugador jugadores[],int tam) {
 		retorno = 1;//Encontro al libro y lo borro
 	}
     return retorno;
-}
-
-/**
- * \fn int Sumatoria(eLibro[], int)
- * \brief
- *
- * \param libros
- * \param tam
- * \return
- *
- * Esta funcion recorre la sentencia for guardando en la
- * variable total el importe total de libros.
- */
-int Sumatoria(eLibro libros[], int tam) {
-	int total = 0;
-
-	for (int i = 0; i < tam; ++i) {
-		total = libros[i].importe + total;
-	}
-
-	return total;
-}
-
-/**
- * \fn int ContadorLibrosViejos(eLibro[], int)
- * \brief
- *
- * \param libros
- * \param tam
- * \return
- *
- * Esta funcion cuenta cuentos libros su año es menor al 2000.
- * La funcion recorre el for verificando si el año del libro es menor
- * al 2000, si es asi sumara uno a la variable contadorLibros para
- * luego retornarlo.
- */
-int ContadorLibrosViejos(eLibro libros[], int tam) {
-	int contadorLibros;
-
-	for (int i = 0; i < tam; ++i) {
-		if (libros[i].fecha.anio < 2000 && libros[i].fecha.anio > 0) {
-			contadorLibros++;
-		}
-	}
-
-	return contadorLibros;
 }
 
 /**
@@ -707,22 +661,22 @@ void ConfederacionMayorContratos(eJugador jugadores[], int tam) {
 		mayorContratos = acumuladorConmebol;
 	}
 	else {
-		if (acumuladorUefa > acumuladorAfc && acumuladorUefa > acumuladorCaf && acumuladorUefa > acumuladorConcacaf && acumuladorUefa > acumuladorOfc) {
+		if (acumuladorUefa > acumuladorConmebol && acumuladorUefa > acumuladorAfc && acumuladorUefa > acumuladorCaf && acumuladorUefa > acumuladorConcacaf && acumuladorUefa > acumuladorOfc) {
 			strcpy(confederacionMayorContrato, "UEFA");
 			mayorContratos = acumuladorUefa;
 		}
 		else {
-			if (acumuladorAfc > acumuladorCaf && acumuladorAfc > acumuladorConcacaf && acumuladorAfc > acumuladorOfc) {
+			if (acumuladorAfc > acumuladorConmebol && acumuladorAfc > acumuladorUefa && acumuladorAfc > acumuladorCaf && acumuladorAfc > acumuladorConcacaf && acumuladorAfc > acumuladorOfc) {
 				strcpy(confederacionMayorContrato, "AFC");
 				mayorContratos = acumuladorAfc;
 			}
 			else {
-				if (acumuladorCaf > acumuladorConcacaf && acumuladorCaf > acumuladorOfc) {
+				if (acumuladorCaf > acumuladorConmebol && acumuladorCaf > acumuladorUefa && acumuladorCaf > acumuladorAfc && acumuladorCaf > acumuladorConcacaf && acumuladorCaf > acumuladorOfc) {
 					strcpy(confederacionMayorContrato, "CAF");
 					mayorContratos = acumuladorCaf;
 				}
 				else {
-					if (acumuladorConcacaf > acumuladorOfc) {
+					if (acumuladorOfc > acumuladorConmebol && acumuladorOfc > acumuladorUefa && acumuladorOfc > acumuladorAfc && acumuladorOfc > acumuladorConcacaf && acumuladorOfc > acumuladorCaf) {
 						strcpy(confederacionMayorContrato, "CONCACAF");
 						mayorContratos = acumuladorOfc;
 					}
