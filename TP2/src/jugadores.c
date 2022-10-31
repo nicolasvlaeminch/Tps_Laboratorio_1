@@ -606,12 +606,47 @@ void MostrarSalario(eJugador jugadores[], int tam) {
 	float promedio;
 	int mayorPromedio;
 
-	salarioTotal = TotalSalarios(jugadores, CANTIDAD);
+	salarioTotal = TotalSalarios(jugadores, tam);
 	promedio = Promedio(jugadores, tam);
 	mayorPromedio = SuperiorPromedio(jugadores, tam);
 
 	printf("\nEl total de todos los salarios es: %d, El promedio total es: %.2f y la cantidad de jugadores que cobran mas que el promedio son %d\n"
 			,salarioTotal , promedio, mayorPromedio);
+}
+
+int CompararMayorNumero (int numeroUno, int numeroDos, int numeroTres, int numeroCuatro, int numeroCinco, int numeroSeis) {
+	int opcion;
+
+	if (numeroUno > numeroDos && numeroUno > numeroTres && numeroUno > numeroCuatro && numeroUno > numeroCinco && numeroUno > numeroSeis) {
+		opcion = 0;
+	}
+	else {
+		if (numeroDos > numeroTres && numeroDos > numeroCuatro && numeroDos > numeroCinco && numeroDos > numeroSeis && numeroDos > numeroUno) {
+			opcion = 1;
+		}
+		else {
+			if (numeroTres > numeroUno && numeroTres > numeroDos && numeroTres > numeroCuatro && numeroTres > numeroCinco && numeroTres > numeroSeis) {
+				opcion = 2;
+			}
+			else {
+				if (numeroCuatro > numeroUno && numeroCuatro > numeroDos && numeroCuatro > numeroTres && numeroCuatro > numeroCinco && numeroCuatro > numeroSeis) {
+					opcion = 3;
+				}
+				else {
+					if (numeroCinco > numeroUno && numeroCinco > numeroDos && numeroCinco > numeroTres && numeroCinco > numeroCuatro && numeroCinco > numeroSeis) {
+						opcion = 4;
+					}
+					else {
+						if (numeroSeis > numeroUno && numeroSeis > numeroDos && numeroSeis > numeroTres && numeroSeis > numeroCuatro && numeroSeis > numeroCinco) {
+							opcion = 5;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	return opcion;
 }
 
 void ConfederacionMayorContratos(eJugador jugadores[], int tam) {
@@ -623,6 +658,7 @@ void ConfederacionMayorContratos(eJugador jugadores[], int tam) {
 	int acumuladorCaf = 0;
 	int acumuladorConcacaf = 0;
 	int acumuladorOfc = 0;
+	int opcion;
 
 	for(int i=0; i<tam; i++) {
 		if(jugadores[i].isEmpty == LLENO) {
@@ -657,34 +693,144 @@ void ConfederacionMayorContratos(eJugador jugadores[], int tam) {
 		}
 	}
 
-	if (acumuladorConmebol > acumuladorUefa && acumuladorConmebol > acumuladorAfc && acumuladorConmebol > acumuladorCaf && acumuladorConmebol > acumuladorConcacaf && acumuladorConmebol > acumuladorOfc) {
-		strcpy(confederacionMayorContrato, "CONMEBOL");
-		mayorContratos = acumuladorConmebol;
-	}
-	else {
-		if (acumuladorUefa > acumuladorConmebol && acumuladorUefa > acumuladorAfc && acumuladorUefa > acumuladorCaf && acumuladorUefa > acumuladorConcacaf && acumuladorUefa > acumuladorOfc) {
+	opcion = CompararMayorNumero (acumuladorConmebol, acumuladorUefa, acumuladorAfc, acumuladorCaf, acumuladorConcacaf, acumuladorOfc);
+
+	switch (opcion) {
+		case 0:
+			strcpy(confederacionMayorContrato, "CONMEBOL");
+			mayorContratos = acumuladorConmebol;
+			break;
+		case 1:
 			strcpy(confederacionMayorContrato, "UEFA");
 			mayorContratos = acumuladorUefa;
-		}
-		else {
-			if (acumuladorAfc > acumuladorConmebol && acumuladorAfc > acumuladorUefa && acumuladorAfc > acumuladorCaf && acumuladorAfc > acumuladorConcacaf && acumuladorAfc > acumuladorOfc) {
-				strcpy(confederacionMayorContrato, "AFC");
-				mayorContratos = acumuladorAfc;
+			break;
+		case 2:
+			strcpy(confederacionMayorContrato, "AFC");
+			mayorContratos = acumuladorAfc;
+			break;
+		case 3:
+			strcpy(confederacionMayorContrato, "CAF");
+			mayorContratos = acumuladorCaf;
+			break;
+		case 4:
+			strcpy(confederacionMayorContrato, "CONCACAF");
+			mayorContratos = acumuladorConcacaf;
+			break;
+		case 5:
+			strcpy(confederacionMayorContrato, "OFC");
+			mayorContratos = acumuladorOfc;
+			break;
+	}
+
+	printf("La confederacion con mayor cantidad de años de contrato es %s con una cantidad de %d años de contratos.\n", confederacionMayorContrato, mayorContratos);
+}
+
+float calcularPorcentajeJugador (int totalJugadores, int jugadoresConfederacion) {
+	float porcentaje;
+
+	porcentaje = (float)jugadoresConfederacion * 100 / totalJugadores;
+
+	return porcentaje;
+}
+
+void InformarPorcentajeJugadores (eJugador jugadores[], int tam) {
+	int contadorConmebol = 0;
+	int contadorUefa = 0;
+	int contadorAfc = 0;
+	int contadorCaf = 0;
+	int contadorConcacaf = 0;
+	int contadorOfc = 0;
+	int contadorJugadores = 0;
+	float porcentajeConmebol = 0;
+	float porcentajeUefa = 0;
+	float porcentajeAfc = 0;
+	float porcentajeCaf = 0;
+	float porcentajeConcacaf = 0;
+	float porcentajeOfc = 0;
+
+
+
+	for(int i=0; i<tam; i++) {
+		if(jugadores[i].isEmpty == LLENO) {
+			contadorJugadores++;
+			if (strcmp(jugadores[i].idConfederacion.nombre, "CONMEBOL") == 0){
+				contadorConmebol++;
 			}
 			else {
-				if (acumuladorCaf > acumuladorConmebol && acumuladorCaf > acumuladorUefa && acumuladorCaf > acumuladorAfc && acumuladorCaf > acumuladorConcacaf && acumuladorCaf > acumuladorOfc) {
-					strcpy(confederacionMayorContrato, "CAF");
-					mayorContratos = acumuladorCaf;
+				if (strcmp(jugadores[i].idConfederacion.nombre, "UEFA") == 0) {
+					contadorUefa++;
 				}
 				else {
-					if (acumuladorConcacaf > acumuladorConmebol && acumuladorConcacaf > acumuladorUefa && acumuladorConcacaf > acumuladorAfc && acumuladorConcacaf > acumuladorOfc && acumuladorConcacaf > acumuladorCaf) {
-						strcpy(confederacionMayorContrato, "CONCACAF");
-						mayorContratos = acumuladorConcacaf;
+					if (strcmp(jugadores[i].idConfederacion.nombre, "AFC") == 0) {
+						contadorAfc++;
 					}
 					else {
-						if (acumuladorOfc > acumuladorConmebol && acumuladorOfc > acumuladorUefa && acumuladorOfc > acumuladorAfc && acumuladorOfc > acumuladorConcacaf && acumuladorOfc > acumuladorCaf) {
-							strcpy(confederacionMayorContrato, "OFC");
-							mayorContratos = acumuladorOfc;
+						if (strcmp(jugadores[i].idConfederacion.nombre, "CAF") == 0) {
+							contadorCaf++;
+						}
+						else {
+							if (strcmp(jugadores[i].idConfederacion.nombre, "CONCACAF") == 0) {
+								contadorConcacaf++;
+							}
+							else {
+								if (strcmp(jugadores[i].idConfederacion.nombre, "OFC") == 0) {
+									contadorOfc++;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	porcentajeConmebol = calcularPorcentajeJugador(contadorJugadores, contadorConmebol);
+	porcentajeUefa = calcularPorcentajeJugador(contadorJugadores, contadorUefa);
+	porcentajeAfc = calcularPorcentajeJugador(contadorJugadores, contadorAfc);
+	porcentajeCaf = calcularPorcentajeJugador(contadorJugadores, contadorCaf);
+	porcentajeConcacaf = calcularPorcentajeJugador(contadorJugadores, contadorConcacaf);
+	porcentajeOfc = calcularPorcentajeJugador(contadorJugadores, contadorOfc);
+
+	printf("\nLos porcentajes de jugadores por confederacion son los siguientes: | CONMEBOL: %.2f | UEFA: %.2f | AFC: %.2f | CAF: %.2f | CONCACAF: %.2f | OFC: %.2f |\n",
+			porcentajeConmebol, porcentajeUefa, porcentajeAfc, porcentajeCaf, porcentajeConcacaf, porcentajeOfc);
+}
+
+void RegionMasJugadores(eJugador jugadores[], int tam) {
+	char regionMasJugadores[20];
+	int cantidadJugadores;
+	int contadorConmebol = 0;
+	int contadorUefa = 0;
+	int contadorAfc = 0;
+	int contadorCaf = 0;
+	int contadorConcacaf = 0;
+	int contadorOfc = 0;
+	int opcion;
+
+	for(int i=0; i<tam; i++) {
+		if(jugadores[i].isEmpty == LLENO) {
+			if (strcmp(jugadores[i].idConfederacion.nombre, "CONMEBOL") == 0){
+				contadorConmebol++;
+			}
+			else {
+				if (strcmp(jugadores[i].idConfederacion.nombre, "UEFA") == 0) {
+					contadorUefa++;
+				}
+				else {
+					if (strcmp(jugadores[i].idConfederacion.nombre, "AFC") == 0) {
+						contadorAfc++;
+					}
+					else {
+						if (strcmp(jugadores[i].idConfederacion.nombre, "CAF") == 0) {
+							contadorCaf++;
+						}
+						else {
+							if (strcmp(jugadores[i].idConfederacion.nombre, "CONCACAF") == 0) {
+								contadorConcacaf++;
+							}
+							else {
+								if (strcmp(jugadores[i].idConfederacion.nombre, "OFC") == 0) {
+									contadorOfc++;
+								}
+							}
 						}
 					}
 				}
@@ -692,9 +838,36 @@ void ConfederacionMayorContratos(eJugador jugadores[], int tam) {
 		}
 	}
 
-	printf("La confederacion con mayor cantidad de años de contrato es %s con una cantidad de %d años de contratos.\n", confederacionMayorContrato, mayorContratos);
-}
+	opcion = CompararMayorNumero (contadorConmebol, contadorUefa, contadorAfc, contadorCaf, contadorConcacaf, contadorOfc);
 
+	switch (opcion) {
+		case 0:
+			strcpy(regionMasJugadores, "CONMEBOL");
+			cantidadJugadores = contadorConmebol;
+			break;
+		case 1:
+			strcpy(regionMasJugadores, "UEFA");
+			cantidadJugadores = contadorUefa;
+			break;
+		case 2:
+			strcpy(regionMasJugadores, "AFC");
+			cantidadJugadores = contadorAfc;
+			break;
+		case 3:
+			strcpy(regionMasJugadores, "CAF");
+			cantidadJugadores = contadorCaf;
+			break;
+		case 4:
+			strcpy(regionMasJugadores, "CONCACAF");
+			cantidadJugadores = contadorConcacaf;
+			break;
+		case 5:
+			strcpy(regionMasJugadores, "OFC");
+			cantidadJugadores = contadorOfc;
+			break;
+	}
+	printf("\nLa region con mas jugadores es %s con una cantidad de %d jugadores.\n", regionMasJugadores, cantidadJugadores);
+}
 
 
 

@@ -29,6 +29,10 @@ int main(void) {
 	int respuestaModificar;
 	int opcionModificar;
 
+	//4
+	int respuestaInforme;
+	int opcionInforme;
+
 
 
 
@@ -107,10 +111,50 @@ int main(void) {
 				}
 				break;
 			case 4:
-				OrdenarDosCadenas(jugadores , CANTIDAD);
-				ListarConfederacionJugador(jugadores, CANTIDAD);
-				MostrarSalario(jugadores, CANTIDAD);
-				ConfederacionMayorContratos(jugadores, CANTIDAD);
+				if (VerificarLleno(jugadores, CANTIDAD) == 1) {
+					respuestaInforme = utn_getNumero(&opcionInforme,
+									"\nQue desea ver?\n\n"
+									"1. LISTADO DE JUGADORES\n"
+									"2. LISTADO DE CONFEDERACIONES\n"
+									"3. SALARIO TOTAL, PROMEDIO Y JUGADORES QUE COBRAN MAS QUE EL PROMEDIO.\n"
+									"4. CONFEDERACION CON MAYOR CANTIDAD DE AÑOS DE CONTRATO\n"
+									"5. PORCENTAJE DE JUGADORES POR CONFEDERACION\n"
+									"6. REGION CON MAS JUGADORES\n"
+									"7. SALIR"
+									"\n\nIngrese una opcion: ", "\nERROR: numero invalido\n", 1, 7, 3);
+					if(!respuestaInforme) {
+						switch(opcionInforme) {
+						case 1:
+							OrdenarDosCadenas(jugadores , CANTIDAD);
+							break;
+						case 2:
+							ListarConfederacionJugador(jugadores, CANTIDAD);
+							break;
+						case 3:
+							MostrarSalario(jugadores, CANTIDAD);
+							break;
+						case 4:
+							ConfederacionMayorContratos(jugadores, CANTIDAD);
+							break;
+						case 5:
+							InformarPorcentajeJugadores (jugadores, CANTIDAD);
+							break;
+						case 6:
+							RegionMasJugadores(jugadores, CANTIDAD);
+							break;
+						case 7:
+							printf("Salio del menu");
+							break;
+						}
+					}
+				}
+
+//				OrdenarDosCadenas(jugadores , CANTIDAD);
+//				ListarConfederacionJugador(jugadores, CANTIDAD);
+//				MostrarSalario(jugadores, CANTIDAD);
+//				ConfederacionMayorContratos(jugadores, CANTIDAD);
+//				InformarPorcentajeJugadores (jugadores, CANTIDAD);
+//				RegionMasJugadores(jugadores, CANTIDAD);
 				break;
 			case 5:
 				printf("Salio del menu");
