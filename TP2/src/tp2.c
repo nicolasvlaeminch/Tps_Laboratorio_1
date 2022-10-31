@@ -40,6 +40,7 @@ int main(void) {
 	for(int i=0; i<CANTIDAD; i++)
 	{
 		jugadores[i].isEmpty = VACIO;
+		jugadores[i].salario = VACIO;
 	}
 
 	while (respuestaMenu != 5) {

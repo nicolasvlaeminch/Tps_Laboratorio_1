@@ -602,9 +602,9 @@ int SuperiorPromedio(eJugador jugadores[], int tam) {
 }
 
 void MostrarSalario(eJugador jugadores[], int tam) {
-	int salarioTotal;
-	float promedio;
-	int mayorPromedio;
+	int salarioTotal = 0;
+	float promedio = 0;
+	int mayorPromedio = 0;
 
 	salarioTotal = TotalSalarios(jugadores, tam);
 	promedio = Promedio(jugadores, tam);
