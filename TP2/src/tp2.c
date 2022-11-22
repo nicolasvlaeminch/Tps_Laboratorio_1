@@ -147,6 +147,9 @@ int main(void) {
 						}
 					}
 				}
+				else {
+					printf("No hay jugadores cargados.\n");
+				}
 				break;
 			case 5:
 				printf("Salio del menu");

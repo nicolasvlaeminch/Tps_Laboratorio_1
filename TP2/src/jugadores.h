@@ -45,7 +45,7 @@ void ListarConfederacionJugador(eJugador jugadores[], int tam);
 int CompararMayorNumero (int numeroUno, int numeroDos, int numeroTres, int numeroCuatro, int numeroCinco, int numeroSeis);
 int TotalSalarios(eJugador jugadores[], int tam);
 void MostrarSalario(eJugador jugadores[], int tam);
-float calcularPorcentajeJugador (int totalJugadores, int jugadoresConfederacion);
+float CalcularPorcentajeJugador (int totalJugadores, int jugadoresConfederacion);
 void ConfederacionMayorContratos(eJugador jugadores[], int tam);
 void InformarPorcentajeJugadores (eJugador jugadores[], int tam);
 void RegionMasJugadores(eJugador jugadores[], int tam);

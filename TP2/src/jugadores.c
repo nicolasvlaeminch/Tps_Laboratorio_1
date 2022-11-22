@@ -196,191 +196,6 @@ int BuscarJugador(eJugador jugadores[],int tam,int codigoABuscar) {
 	return indice;
 }
 
-
-/**
- * \fn int ModificarJugador(eJugador[], int, int)
- * \brief
- *
- * \param jugadores
- * \param tam
- * \param opcion
- * \return
- *
- * Esta funcion permite modificar un lugar en concreto de un jugador.
- * Primero la funcion pide que ingrese el codigo del jugador mediante
- * la funcion PedirEntero, busca el jugador mediante la funcion
- * BuscarJugador, luego dependiendo del dato pasado por la variable
- * opcion ingresara al switch eligiendo el tipo de dato a cambiar,
- * una vez terminado el cambio pedira verificar si estas seguro en
- * realizar los cambios ingresando 1 si la respuesta es si, y 0
- * si la respuesta es no.
- * Retorna -1 no encuentra el jugador y 1 si lo encuentra.
- */
-int ModificarJugador(eJugador jugadores[], int tam, int opcion) {
-	int codigoAModificar;
-	char nombreModificado[51];
-	int indiceAModificar;
-	int confirmacion;
-	int retorno;
-	int numeroCamiseta;
-	int respuestaMenu;
-	int salario;
-	int aniosContrato;
-	retorno = -1;//Si no encontro el libro
-
-	codigoAModificar = PedirEntero("\nIngrese el codigo del jugador a modificar: ", "Error: Ingrese el codigo del jugador a modificar: ", 0, 3000);
-	indiceAModificar = BuscarJugador(jugadores, tam, codigoAModificar);
-
-	if(indiceAModificar > -1)
-	{
-		switch (opcion) {
-			case 1:
-				PedirCadena(nombreModificado,51,"Ingrese el nuevo nombre : ");
-				retorno = 0;//Si cancelo la operación
-				confirmacion = PedirEntero("Nombre listo para ser cargado ¿Desea guardar los cambios? 1 si 0 no: ",
-						"ERROR: Nombre listo para ser cargado ¿Desea guardar los cambios? 1 si 0 no: ", 0, 1);
-				if(confirmacion == 1)
-				{
-					strcpy(jugadores[indiceAModificar].nombre, nombreModificado);
-					retorno = 1;//Salió todo bien
-				}
-				break;
-			case 2:
-			    respuestaMenu = utn_getNumero(&opcion,
-			    				"\n"
-			    				"1. Arquero\n"
-			    				"2. Defensor\n"
-			    				"3. Mediocampista\n"
-			    				"4. Delantero\n"
-			    				"\n\nIngrese una opcion: ", "\nERROR: numero invalido\n", 1, 4, 3);
-				retorno = 0;//Si cancelo la operación
-				confirmacion = PedirEntero("Nueva confederacion lista para ser cargada ¿Desea guardar los cambios? 1 si 0 no: ",
-						"ERROR: Nueva confederacion lista para ser cargada ¿Desea guardar los cambios? 1 si 0 no: ", 0, 1);
-				if(confirmacion == 1) {
-					retorno = 1;//Salió todo bien
-				    		if(!respuestaMenu) {
-				    			switch(opcion) {
-				    			case 1:
-				    				strcpy(jugadores[indiceAModificar].posicion, "Arquero");
-				    				break;
-				    			case 2:
-				    				strcpy(jugadores[indiceAModificar].posicion, "Defensor");
-				    				break;
-				    			case 3:
-				    				strcpy(jugadores[indiceAModificar].posicion, "Mediocampista");
-				    				break;
-				    			case 4:
-				    				strcpy(jugadores[indiceAModificar].posicion, "Delantero");
-				    				break;
-				    			}
-				    		}
-				}
-			    break;
-			case 3:
-				numeroCamiseta = PedirEntero("Ingrese el nuevo n° camiseta: ", "ERROR: Ingrese un n° camiseta valido del 1 al 99: ", 1, 99);
-				retorno = 0;//Si cancelo la operación
-				confirmacion = PedirEntero("Nuevo n° camiseta listo para ser cargado ¿Desea guardar los cambios? 1 si 0 no: ",
-						"ERROR: Nuevo n° camiseta listo para ser cargado ¿Desea guardar los cambios? 1 si 0 no: ", 0, 1);
-				if(confirmacion == 1)
-				{
-				    jugadores[indiceAModificar].numeroCamiseta = numeroCamiseta;
-					retorno = 1;//Salió todo bien
-				}
-				break;
-			case 4:
-				salario = PedirEntero("Ingrese el nuevo sueldo: ", "ERROR: Ingrese un sueldo valido entre 1 y 2millones: ", 1, 2000000);
-				retorno = 0;//Si cancelo la operación
-				confirmacion = PedirEntero("Nuevo sueldo listo para ser cargado ¿Desea guardar los cambios? 1 si 0 no: ",
-						"ERROR: Nuevo sueldo listo para ser cargado ¿Desea guardar los cambios? 1 si 0 no: ", 0, 1);
-				if(confirmacion == 1)
-				{
-				    jugadores[indiceAModificar].salario = salario;
-					retorno = 1;//Salió todo bien
-				}
-				break;
-			case 5:
-			    respuestaMenu = utn_getNumero(&opcion,
-			    		"\n"
-			    		" ______________________________________________________\n"
-			    		"| ID | NOMBRE  |    REGION              | AÑO CREACION |\n"
-			    		"|====|=========|========================|==============|\n"
-	    				"|100 | CONMEBOL| SUDAMERICA             |     1916     |\n"
-	    				"|____|_________|________________________|______________|\n"
-			    		"|101 | UEFA    | EUROPA                 |     1954     |\n"
-			    		"|____|_________|________________________|______________|\n"
-			    		"|102 | AFC     | ASIA                   |     1954     |\n"
-			    		"|____|_________|________________________|______________|\n"
-	    				"|103 | CAF     | AFRICA                 |     1957     |\n"
-			   			"|____|_________|________________________|______________|\n"
-			    		"|104 | CONCACAF| NORTE Y CENTRO AMERICA |     1961     |\n"
-			    		"|____|_________|________________________|______________|\n"
-	    				"|105 | OFC     | OCEANIA                |     1966     |\n"
-						"|____|_________|________________________|______________|\n"
-			   			"\nIngrese una opcion: ",
-						"\nERROR: numero invalido\n", 100, 105, 3);
-				retorno = 0;//Si cancelo la operación
-				confirmacion = PedirEntero("Nueva confederacion lista para ser cargada ¿Desea guardar los cambios? 1 si 0 no: ",
-						"ERROR: Nueva confederacion lista para ser cargada ¿Desea guardar los cambios? 1 si 0 no: ", 0, 1);
-				if(confirmacion == 1) {
-					retorno = 1;//Salió todo bien
-		    		if(!respuestaMenu) {
-		    			switch(opcion) {
-		    			case 100:
-		    				jugadores[indiceAModificar].idConfederacion.id = 100;
-		    				jugadores[indiceAModificar].idConfederacion.anioCreacion = 1916;
-		    				strcpy(jugadores[indiceAModificar].idConfederacion.nombre, "CONMEBOL");
-		    				strcpy(jugadores[indiceAModificar].idConfederacion.region, "SUDAMERICA");
-		    				break;
-		    			case 101:
-		    				jugadores[indiceAModificar].idConfederacion.id = 101;
-		    				jugadores[indiceAModificar].idConfederacion.anioCreacion = 1954;
-		    				strcpy(jugadores[indiceAModificar].idConfederacion.nombre, "UEFA");
-		    				strcpy(jugadores[indiceAModificar].idConfederacion.region, "EUROPA");
-		    				break;
-		    			case 102:
-		    				jugadores[indiceAModificar].idConfederacion.id = 102;
-		    				jugadores[indiceAModificar].idConfederacion.anioCreacion = 1954;
-		    				strcpy(jugadores[indiceAModificar].idConfederacion.nombre, "AFC");
-		    				strcpy(jugadores[indiceAModificar].idConfederacion.region, "ASIA");
-		    				break;
-		    			case 103:
-		    				jugadores[indiceAModificar].idConfederacion.id = 103;
-		    				jugadores[indiceAModificar].idConfederacion.anioCreacion = 1957;
-		    				strcpy(jugadores[indiceAModificar].idConfederacion.nombre, "CAF");
-		    				strcpy(jugadores[indiceAModificar].idConfederacion.region, "AFRICA");
-		    				break;
-		    			case 104:
-		    				jugadores[indiceAModificar].idConfederacion.id = 104;
-		    				jugadores[indiceAModificar].idConfederacion.anioCreacion = 1961;
-		    				strcpy(jugadores[indiceAModificar].idConfederacion.nombre, "CONCACAF");
-		    				strcpy(jugadores[indiceAModificar].idConfederacion.region, "NORTE Y CENTRO AMERICA");
-		    				break;
-		    			case 105:
-		    				jugadores[indiceAModificar].idConfederacion.id = 105;
-		    				jugadores[indiceAModificar].idConfederacion.anioCreacion = 1966;
-		    				strcpy(jugadores[indiceAModificar].idConfederacion.nombre, "OFC");
-		    				strcpy(jugadores[indiceAModificar].idConfederacion.region, "OCEANIA");
-		    				break;
-		    			}
-		    		}
-				}
-				break;
-			case 6:
-				aniosContrato = PedirEntero("Ingrese los nuevos años de contrato: ", "ERROR: Ingrese los nuevos años de contrato entre 1 y 10: ", 1, 10);
-				retorno = 0;//Si cancelo la operación
-				confirmacion = PedirEntero("Nuevo contrato listo para ser cargado ¿Desea guardar los cambios? 1 si 0 no: ",
-						"ERROR: Nuevo contrato listo para ser cargado ¿Desea guardar los cambios? 1 si 0 no: ", 0, 1);
-				if(confirmacion == 1)
-				{
-				    jugadores[indiceAModificar].aniosContrato = aniosContrato;
-					retorno = 1;//Salió todo bien
-				}
-				break;
-		}
-	}
-	return retorno;
-}
-
 /**
  * \fn int Baja(eJugador[], int)
  * \brief
@@ -581,6 +396,190 @@ void ListarConfederacionJugador(eJugador jugadores[], int tam) {
 	MostrarConfederacionJugador(jugadores, CANTIDAD, "CAF");
 	MostrarConfederacionJugador(jugadores, CANTIDAD, "CONCACAF");
 	MostrarConfederacionJugador(jugadores, CANTIDAD, "OFC");
+}
+
+/**
+ * \fn int ModificarJugador(eJugador[], int, int)
+ * \brief
+ *
+ * \param jugadores
+ * \param tam
+ * \param opcion
+ * \return
+ *
+ * Esta funcion permite modificar un lugar en concreto de un jugador.
+ * Primero la funcion ordena por id y pide que ingrese el codigo del jugador
+ * mediante la funcion PedirEntero, busca el jugador mediante la funcion
+ * BuscarJugador, luego dependiendo del dato pasado por la variable
+ * opcion ingresara al switch eligiendo el tipo de dato a cambiar,
+ * una vez terminado el cambio pedira verificar si estas seguro en
+ * realizar los cambios ingresando 1 si la respuesta es si, y 0
+ * si la respuesta es no.
+ * Retorna -1 no encuentra el jugador y 1 si lo encuentra.
+ */
+int ModificarJugador(eJugador jugadores[], int tam, int opcion) {
+	int codigoAModificar;
+	char nombreModificado[51];
+	int indiceAModificar;
+	int confirmacion;
+	int retorno;
+	int numeroCamiseta;
+	int respuestaMenu;
+	int salario;
+	int aniosContrato;
+	retorno = -1;//Si no encontro el libro
+
+	codigoAModificar = PedirEntero("\nIngrese el codigo del jugador a modificar: ", "Error: Ingrese el codigo del jugador a modificar: ", 0, 3000);
+	indiceAModificar = BuscarJugador(jugadores, tam, codigoAModificar);
+
+	if(indiceAModificar > -1)
+	{
+		switch (opcion) {
+			case 1:
+				PedirCadena(nombreModificado,51,"Ingrese el nuevo nombre : ");
+				retorno = 0;//Si cancelo la operación
+				confirmacion = PedirEntero("Nombre listo para ser cargado ¿Desea guardar los cambios? 1 si 0 no: ",
+						"ERROR: Nombre listo para ser cargado ¿Desea guardar los cambios? 1 si 0 no: ", 0, 1);
+				if(confirmacion == 1)
+				{
+					strcpy(jugadores[indiceAModificar].nombre, nombreModificado);
+					retorno = 1;//Salió todo bien
+				}
+				break;
+			case 2:
+			    respuestaMenu = utn_getNumero(&opcion,
+			    				"\n"
+			    				"1. Arquero\n"
+			    				"2. Defensor\n"
+			    				"3. Mediocampista\n"
+			    				"4. Delantero\n"
+			    				"\n\nIngrese una opcion: ", "\nERROR: numero invalido\n", 1, 4, 3);
+				retorno = 0;//Si cancelo la operación
+				confirmacion = PedirEntero("Nueva confederacion lista para ser cargada ¿Desea guardar los cambios? 1 si 0 no: ",
+						"ERROR: Nueva confederacion lista para ser cargada ¿Desea guardar los cambios? 1 si 0 no: ", 0, 1);
+				if(confirmacion == 1) {
+					retorno = 1;//Salió todo bien
+				    		if(!respuestaMenu) {
+				    			switch(opcion) {
+				    			case 1:
+				    				strcpy(jugadores[indiceAModificar].posicion, "Arquero");
+				    				break;
+				    			case 2:
+				    				strcpy(jugadores[indiceAModificar].posicion, "Defensor");
+				    				break;
+				    			case 3:
+				    				strcpy(jugadores[indiceAModificar].posicion, "Mediocampista");
+				    				break;
+				    			case 4:
+				    				strcpy(jugadores[indiceAModificar].posicion, "Delantero");
+				    				break;
+				    			}
+				    		}
+				}
+			    break;
+			case 3:
+				numeroCamiseta = PedirEntero("Ingrese el nuevo n° camiseta: ", "ERROR: Ingrese un n° camiseta valido del 1 al 99: ", 1, 99);
+				retorno = 0;//Si cancelo la operación
+				confirmacion = PedirEntero("Nuevo n° camiseta listo para ser cargado ¿Desea guardar los cambios? 1 si 0 no: ",
+						"ERROR: Nuevo n° camiseta listo para ser cargado ¿Desea guardar los cambios? 1 si 0 no: ", 0, 1);
+				if(confirmacion == 1)
+				{
+				    jugadores[indiceAModificar].numeroCamiseta = numeroCamiseta;
+					retorno = 1;//Salió todo bien
+				}
+				break;
+			case 4:
+				salario = PedirEntero("Ingrese el nuevo sueldo: ", "ERROR: Ingrese un sueldo valido entre 1 y 2millones: ", 1, 2000000);
+				retorno = 0;//Si cancelo la operación
+				confirmacion = PedirEntero("Nuevo sueldo listo para ser cargado ¿Desea guardar los cambios? 1 si 0 no: ",
+						"ERROR: Nuevo sueldo listo para ser cargado ¿Desea guardar los cambios? 1 si 0 no: ", 0, 1);
+				if(confirmacion == 1)
+				{
+				    jugadores[indiceAModificar].salario = salario;
+					retorno = 1;//Salió todo bien
+				}
+				break;
+			case 5:
+			    respuestaMenu = utn_getNumero(&opcion,
+			    		"\n"
+			    		" ______________________________________________________\n"
+			    		"| ID | NOMBRE  |    REGION              | AÑO CREACION |\n"
+			    		"|====|=========|========================|==============|\n"
+	    				"|100 | CONMEBOL| SUDAMERICA             |     1916     |\n"
+	    				"|____|_________|________________________|______________|\n"
+			    		"|101 | UEFA    | EUROPA                 |     1954     |\n"
+			    		"|____|_________|________________________|______________|\n"
+			    		"|102 | AFC     | ASIA                   |     1954     |\n"
+			    		"|____|_________|________________________|______________|\n"
+	    				"|103 | CAF     | AFRICA                 |     1957     |\n"
+			   			"|____|_________|________________________|______________|\n"
+			    		"|104 | CONCACAF| NORTE Y CENTRO AMERICA |     1961     |\n"
+			    		"|____|_________|________________________|______________|\n"
+	    				"|105 | OFC     | OCEANIA                |     1966     |\n"
+						"|____|_________|________________________|______________|\n"
+			   			"\nIngrese una opcion: ",
+						"\nERROR: numero invalido\n", 100, 105, 3);
+				retorno = 0;//Si cancelo la operación
+				confirmacion = PedirEntero("Nueva confederacion lista para ser cargada ¿Desea guardar los cambios? 1 si 0 no: ",
+						"ERROR: Nueva confederacion lista para ser cargada ¿Desea guardar los cambios? 1 si 0 no: ", 0, 1);
+				if(confirmacion == 1) {
+					retorno = 1;//Salió todo bien
+		    		if(!respuestaMenu) {
+		    			switch(opcion) {
+		    			case 100:
+		    				jugadores[indiceAModificar].idConfederacion.id = 100;
+		    				jugadores[indiceAModificar].idConfederacion.anioCreacion = 1916;
+		    				strcpy(jugadores[indiceAModificar].idConfederacion.nombre, "CONMEBOL");
+		    				strcpy(jugadores[indiceAModificar].idConfederacion.region, "SUDAMERICA");
+		    				break;
+		    			case 101:
+		    				jugadores[indiceAModificar].idConfederacion.id = 101;
+		    				jugadores[indiceAModificar].idConfederacion.anioCreacion = 1954;
+		    				strcpy(jugadores[indiceAModificar].idConfederacion.nombre, "UEFA");
+		    				strcpy(jugadores[indiceAModificar].idConfederacion.region, "EUROPA");
+		    				break;
+		    			case 102:
+		    				jugadores[indiceAModificar].idConfederacion.id = 102;
+		    				jugadores[indiceAModificar].idConfederacion.anioCreacion = 1954;
+		    				strcpy(jugadores[indiceAModificar].idConfederacion.nombre, "AFC");
+		    				strcpy(jugadores[indiceAModificar].idConfederacion.region, "ASIA");
+		    				break;
+		    			case 103:
+		    				jugadores[indiceAModificar].idConfederacion.id = 103;
+		    				jugadores[indiceAModificar].idConfederacion.anioCreacion = 1957;
+		    				strcpy(jugadores[indiceAModificar].idConfederacion.nombre, "CAF");
+		    				strcpy(jugadores[indiceAModificar].idConfederacion.region, "AFRICA");
+		    				break;
+		    			case 104:
+		    				jugadores[indiceAModificar].idConfederacion.id = 104;
+		    				jugadores[indiceAModificar].idConfederacion.anioCreacion = 1961;
+		    				strcpy(jugadores[indiceAModificar].idConfederacion.nombre, "CONCACAF");
+		    				strcpy(jugadores[indiceAModificar].idConfederacion.region, "NORTE Y CENTRO AMERICA");
+		    				break;
+		    			case 105:
+		    				jugadores[indiceAModificar].idConfederacion.id = 105;
+		    				jugadores[indiceAModificar].idConfederacion.anioCreacion = 1966;
+		    				strcpy(jugadores[indiceAModificar].idConfederacion.nombre, "OFC");
+		    				strcpy(jugadores[indiceAModificar].idConfederacion.region, "OCEANIA");
+		    				break;
+		    			}
+		    		}
+				}
+				break;
+			case 6:
+				aniosContrato = PedirEntero("Ingrese los nuevos años de contrato: ", "ERROR: Ingrese los nuevos años de contrato entre 1 y 10: ", 1, 10);
+				retorno = 0;//Si cancelo la operación
+				confirmacion = PedirEntero("Nuevo contrato listo para ser cargado ¿Desea guardar los cambios? 1 si 0 no: ",
+						"ERROR: Nuevo contrato listo para ser cargado ¿Desea guardar los cambios? 1 si 0 no: ", 0, 1);
+				if(confirmacion == 1)
+				{
+				    jugadores[indiceAModificar].aniosContrato = aniosContrato;
+					retorno = 1;//Salió todo bien
+				}
+				break;
+		}
+	}
+	return retorno;
 }
 
 /**
@@ -824,7 +823,7 @@ void ConfederacionMayorContratos(eJugador jugadores[], int tam) {
  *
  * Saca el porcentaje de jugadores de una confederacion y luego lo retorna.
  */
-float calcularPorcentajeJugador (int totalJugadores, int jugadoresConfederacion) {
+float CalcularPorcentajeJugador(int totalJugadores, int jugadoresConfederacion) {
 	float porcentaje;
 
 	porcentaje = (float)jugadoresConfederacion * 100 / totalJugadores;
@@ -892,12 +891,12 @@ void InformarPorcentajeJugadores (eJugador jugadores[], int tam) {
 			}
 		}
 	}
-	porcentajeConmebol = calcularPorcentajeJugador(contadorJugadores, contadorConmebol);
-	porcentajeUefa = calcularPorcentajeJugador(contadorJugadores, contadorUefa);
-	porcentajeAfc = calcularPorcentajeJugador(contadorJugadores, contadorAfc);
-	porcentajeCaf = calcularPorcentajeJugador(contadorJugadores, contadorCaf);
-	porcentajeConcacaf = calcularPorcentajeJugador(contadorJugadores, contadorConcacaf);
-	porcentajeOfc = calcularPorcentajeJugador(contadorJugadores, contadorOfc);
+	porcentajeConmebol = CalcularPorcentajeJugador(contadorJugadores, contadorConmebol);
+	porcentajeUefa = CalcularPorcentajeJugador(contadorJugadores, contadorUefa);
+	porcentajeAfc = CalcularPorcentajeJugador(contadorJugadores, contadorAfc);
+	porcentajeCaf = CalcularPorcentajeJugador(contadorJugadores, contadorCaf);
+	porcentajeConcacaf = CalcularPorcentajeJugador(contadorJugadores, contadorConcacaf);
+	porcentajeOfc = CalcularPorcentajeJugador(contadorJugadores, contadorOfc);
 
 	printf("\nLos porcentajes de jugadores por confederacion son los siguientes: | CONMEBOL: %.2f | UEFA: %.2f | AFC: %.2f | CAF: %.2f | CONCACAF: %.2f | OFC: %.2f |\n",
 			porcentajeConmebol, porcentajeUefa, porcentajeAfc, porcentajeCaf, porcentajeConcacaf, porcentajeOfc);
