@@ -1,5 +1,5 @@
 /*
- * libros.h
+ * jugadores.h
  *
  *  Created on: 1 oct 2022
  *      Author: Nicolas
