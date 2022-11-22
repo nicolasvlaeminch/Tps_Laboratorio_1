@@ -25,49 +25,8 @@ typedef struct{
 	short isEmpty;
 }eJugador;
 
-typedef struct{
-	int dia;
-	int mes;
-	int	anio;
-}eFecha;
-
-typedef struct
-{
-	int codigoEditorial;
-	char descripcion[51];
-}eEditorial;
 
 
-typedef struct
-{
-	int codigoPais;
-	char descripcion[51];
-}ePais;
-
-typedef struct
-{
-	int codigoAutor;
-	char nombre[51];
-	ePais nacionalidad;
-}eAutor;
-
-typedef struct
-{
-	int codigoGenero;
-	char descripcion[51];
-}eGenero;
-
-typedef struct
-{
-	int codigoLibro;
-	char titulo[51];
-	eFecha fecha;
-	int importe;
-	eAutor autor;
-	eEditorial editorial;
-	int estado;
-	eGenero genero;
-}eLibro;
 
 int BuscarLibre(eJugador jugadores[], int tam);
 int AltaJugador(eJugador jugadores[], int tam, int codigoAutoIncremental);
@@ -77,8 +36,8 @@ int Baja(eJugador jugadores[], int tam);
 float Promedio(eJugador jugadores[], int tam);
 int SuperiorPromedio(eJugador jugadores[], int tam);
 int VerificarLleno(eJugador jugadores[], int tam);
-void OrdenarImporteYTitulo(eJugador jugadores[], int tam);
-void OrdenarDosCadenas(eJugador jugadores[], int tam);
+void OrdenarIdYMostrarJugador(eJugador jugadores[], int tam);
+void OrdenarNombreConfederacionYJugador(eJugador jugadores[], int tam);
 void MostrarJugadores(eJugador jugadores[], int tam);
 void MostrarConfederacion(eJugador jugadores[], int tam);
 void MostrarConfederacionJugador(eJugador jugadores[], int tam, char confederacion[]);

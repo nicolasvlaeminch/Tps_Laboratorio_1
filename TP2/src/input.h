@@ -9,6 +9,7 @@
 
 int PedirEntero(char mensaje[], char mensajeError[], int min, int max);
 int PedirCadena(char cadena[],int len,char mensaje[]);
+int utn_getNumero(int* pResultado, char* mensaje, char* mensajeError, int minimo, int maximo, int reintentos);
 
 #define INPUT_H_
 

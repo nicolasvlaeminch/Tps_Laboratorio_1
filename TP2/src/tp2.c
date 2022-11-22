@@ -9,9 +9,8 @@
 #include <string.h>
 #include "input.h"
 #include "jugadores.h"
-#include "utn.h"
 #include "validaciones.h"
-#define CANTIDAD 5
+#define CANTIDAD 3000
 #define LLENO 1
 #define VACIO 0
 
@@ -67,7 +66,7 @@ int main(void) {
 				break;
 			case 2:
 				if (VerificarLleno(jugadores,CANTIDAD) == 1) {
-					MostrarJugadores(jugadores, CANTIDAD);
+					OrdenarIdYMostrarJugador(jugadores, CANTIDAD);
 					if (Baja(jugadores, CANTIDAD) == 1) {
 						printf("\nDatos cargados con exito\n");
 						system("pause");
@@ -94,8 +93,7 @@ int main(void) {
 									"6. AÑOS DE CONTRATO"
 									"\n\nIngrese una opcion: ", "\nERROR: numero invalido\n", 1, 6, 3);
 					if(!respuestaModificar) {
-						OrdenarImporteYTitulo(jugadores, CANTIDAD);
-						MostrarJugadores(jugadores, CANTIDAD);
+						OrdenarIdYMostrarJugador(jugadores, CANTIDAD);
 						if (ModificarJugador(jugadores, CANTIDAD, opcionModificar) == 1) {
 							printf("Modoficacion realizada con exito\n");
 							system("pause");
@@ -126,7 +124,7 @@ int main(void) {
 					if(!respuestaInforme) {
 						switch(opcionInforme) {
 						case 1:
-							OrdenarDosCadenas(jugadores , CANTIDAD);
+							OrdenarNombreConfederacionYJugador(jugadores , CANTIDAD);
 							break;
 						case 2:
 							ListarConfederacionJugador(jugadores, CANTIDAD);
@@ -149,13 +147,6 @@ int main(void) {
 						}
 					}
 				}
-
-//				OrdenarDosCadenas(jugadores , CANTIDAD);
-//				ListarConfederacionJugador(jugadores, CANTIDAD);
-//				MostrarSalario(jugadores, CANTIDAD);
-//				ConfederacionMayorContratos(jugadores, CANTIDAD);
-//				InformarPorcentajeJugadores (jugadores, CANTIDAD);
-//				RegionMasJugadores(jugadores, CANTIDAD);
 				break;
 			case 5:
 				printf("Salio del menu");

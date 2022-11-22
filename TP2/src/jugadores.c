@@ -1,5 +1,5 @@
 /*
- * libros.c
+ * jugadores.c
  *
  *  Created on: 1 oct 2022
  *      Author: Nicolas
@@ -10,7 +10,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include "input.h"
-#include "utn.h"
 #define CANTIDAD 5
 #define LLENO 1
 #define VACIO 0
@@ -19,12 +18,12 @@
  * \fn int AltaJugador(eJugador[], int, int)
  * \brief
  *
- * \param libros
+ * \param jugadores
  * \param tam
- * \param legajoAutoIncremental
+ * \param codigoAutoIncremental
  * \return
  *
- * Esta funcion da de alta un libro y lo guarda en una estructura, retorna 1 si se
+ * Esta funcion da de alta un jugador y lo guarda en una estructura, retorna 1 si se
  * da correctamente y 0 si falla. Primero llama la funcion BuscarLibre, para verificar
  * si hay un espacio libre en el array, si lo hay guardara el numero retornado por
  * BuscarLibre en la variable indice, luego enviara los mensajes uno por uno de las
@@ -72,47 +71,57 @@ int AltaJugador(eJugador jugadores[], int tam, int codigoAutoIncremental) {
 	    jugadores[indice].salario = PedirEntero("Ingrese el salario del jugador: ", "ERROR: Ingrese un numero mayor a 0 y menor a 2 millones: ", 1, 20000000);
 	    respuestaMenu = utn_getNumero(&opcion,
 	    				"\n"
-	    				"0. CONMEBOL\n"
-	    				"1. UEFA\n"
-	    				"2. AFC\n"
-	    				"3. CAF\n"
-	    				"4. CONCACAF\n"
-	    				"5. OFC\n"
-	    				"\n\nIngrese una opcion: ", "\nERROR: numero invalido\n", 0, 5, 3);
+                        " ______________________________________________________\n"
+                        "| ID | NOMBRE  |    REGION              | AÑO CREACION |\n"
+                        "|====|=========|========================|==============|\n"
+	    				"|100 | CONMEBOL| SUDAMERICA             |     1916     |\n"
+	    				"|____|_________|________________________|______________|\n"
+						"|101 | UEFA    | EUROPA                 |     1954     |\n"
+						"|____|_________|________________________|______________|\n"
+						"|102 | AFC     | ASIA                   |     1954     |\n"
+						"|____|_________|________________________|______________|\n"
+	    				"|103 | CAF     | AFRICA                 |     1957     |\n"
+	    				"|____|_________|________________________|______________|\n"
+	    				"|104 | CONCACAF| NORTE Y CENTRO AMERICA |     1961     |\n"
+	    				"|____|_________|________________________|______________|\n"
+	    				"|105 | OFC     | OCEANIA                |     1966     |\n"
+						"|____|_________|________________________|______________|\n"
+	    				"\nIngrese una opcion: ",
+						"\nERROR: numero invalido\n", 100, 105, 3);
 	    		if(!respuestaMenu) {
 	    			switch(opcion) {
-	    			case 0:
-	    				jugadores[indice].idConfederacion.id = 0;
+	    			case 100:
+	    				jugadores[indice].idConfederacion.id = 100;
 	    				jugadores[indice].idConfederacion.anioCreacion = 1916;
 	    				strcpy(jugadores[indice].idConfederacion.nombre, "CONMEBOL");
 	    				strcpy(jugadores[indice].idConfederacion.region, "SUDAMERICA");
 	    				break;
-	    			case 1:
-	    				jugadores[indice].idConfederacion.id = 1;
+	    			case 101:
+	    				jugadores[indice].idConfederacion.id = 101;
 	    				jugadores[indice].idConfederacion.anioCreacion = 1954;
 	    				strcpy(jugadores[indice].idConfederacion.nombre, "UEFA");
 	    				strcpy(jugadores[indice].idConfederacion.region, "EUROPA");
 	    				break;
-	    			case 2:
-	    				jugadores[indice].idConfederacion.id = 2;
+	    			case 102:
+	    				jugadores[indice].idConfederacion.id = 102;
 	    				jugadores[indice].idConfederacion.anioCreacion = 1954;
 	    				strcpy(jugadores[indice].idConfederacion.nombre, "AFC");
 	    				strcpy(jugadores[indice].idConfederacion.region, "ASIA");
 	    				break;
-	    			case 3:
-	    				jugadores[indice].idConfederacion.id = 3;
+	    			case 103:
+	    				jugadores[indice].idConfederacion.id = 103;
 	    				jugadores[indice].idConfederacion.anioCreacion = 1957;
 	    				strcpy(jugadores[indice].idConfederacion.nombre, "CAF");
 	    				strcpy(jugadores[indice].idConfederacion.region, "AFRICA");
 	    				break;
-	    			case 4:
-	    				jugadores[indice].idConfederacion.id = 4;
+	    			case 104:
+	    				jugadores[indice].idConfederacion.id = 104;
 	    				jugadores[indice].idConfederacion.anioCreacion = 1961;
 	    				strcpy(jugadores[indice].idConfederacion.nombre, "CONCACAF");
 	    				strcpy(jugadores[indice].idConfederacion.region, "NORTE Y CENTRO AMERICA");
 	    				break;
-	    			case 5:
-	    				jugadores[indice].idConfederacion.id = 5;
+	    			case 105:
+	    				jugadores[indice].idConfederacion.id = 105;
 	    				jugadores[indice].idConfederacion.anioCreacion = 1966;
 	    				strcpy(jugadores[indice].idConfederacion.nombre, "OFC");
 	    				strcpy(jugadores[indice].idConfederacion.region, "OCEANIA");
@@ -129,10 +138,10 @@ int AltaJugador(eJugador jugadores[], int tam, int codigoAutoIncremental) {
 }
 
 /**
- * \fn int BuscarLibre(eLibro[], int)
+ * \fn int BuscarLibre(eJugador[], int)
  * \brief
  *
- * \param libros
+ * \param jugadores
  * \param tam
  * \return
  *
@@ -156,15 +165,15 @@ int BuscarLibre(eJugador jugadores[],int tam) {
 }
 
 /**
- * \fn int BuscarLibro(eLibro[], int, int)
+ * \fn int BuscarJugador(eJugador[], int, int)
  * \brief
  *
- * \param libros
+ * \param jugadores
  * \param tam
  * \param codigoABuscar
  * \return
  *
- * Esta funcion busca un libro por su codigo.
+ * Esta funcion busca un jugador por su codigo.
  *
  * Recorre la sentencia for verificiando si el codigo pasado
  * por parametro existe, si existe retornara el indice de lo
@@ -189,24 +198,23 @@ int BuscarJugador(eJugador jugadores[],int tam,int codigoABuscar) {
 
 
 /**
- * \fn int ModificarLibro(eLibro[], int, int)
+ * \fn int ModificarJugador(eJugador[], int, int)
  * \brief
  *
- * \param libros
+ * \param jugadores
  * \param tam
  * \param opcion
  * \return
  *
- * Esta funcion permite modificar un lugar en concreto de un libro.
- * Primero la funcion pide que ingrese el codigo del libro mediante
- * la funcion PedirEntero, busca el libro mediante la funcion
- * BuscarLibro, luego dependiendo del dato pasado por la variable
+ * Esta funcion permite modificar un lugar en concreto de un jugador.
+ * Primero la funcion pide que ingrese el codigo del jugador mediante
+ * la funcion PedirEntero, busca el jugador mediante la funcion
+ * BuscarJugador, luego dependiendo del dato pasado por la variable
  * opcion ingresara al switch eligiendo el tipo de dato a cambiar,
  * una vez terminado el cambio pedira verificar si estas seguro en
  * realizar los cambios ingresando 1 si la respuesta es si, y 0
  * si la respuesta es no.
- * Retorna -1 no encuentra el libro y 1 si lo encuentra.
- *
+ * Retorna -1 no encuentra el jugador y 1 si lo encuentra.
  */
 int ModificarJugador(eJugador jugadores[], int tam, int opcion) {
 	int codigoAModificar;
@@ -292,14 +300,24 @@ int ModificarJugador(eJugador jugadores[], int tam, int opcion) {
 				break;
 			case 5:
 			    respuestaMenu = utn_getNumero(&opcion,
-			    				"\n"
-			    				"0. CONMEBOL\n"
-			    				"1. UEFA\n"
-			    				"2. AFC\n"
-			    				"3. CAF\n"
-			    				"4. CONCACAF\n"
-			    				"5. OFC\n"
-			    				"\n\nIngrese una opcion: ", "\nERROR: numero invalido\n", 0, 5, 3);
+			    		"\n"
+			    		" ______________________________________________________\n"
+			    		"| ID | NOMBRE  |    REGION              | AÑO CREACION |\n"
+			    		"|====|=========|========================|==============|\n"
+	    				"|100 | CONMEBOL| SUDAMERICA             |     1916     |\n"
+	    				"|____|_________|________________________|______________|\n"
+			    		"|101 | UEFA    | EUROPA                 |     1954     |\n"
+			    		"|____|_________|________________________|______________|\n"
+			    		"|102 | AFC     | ASIA                   |     1954     |\n"
+			    		"|____|_________|________________________|______________|\n"
+	    				"|103 | CAF     | AFRICA                 |     1957     |\n"
+			   			"|____|_________|________________________|______________|\n"
+			    		"|104 | CONCACAF| NORTE Y CENTRO AMERICA |     1961     |\n"
+			    		"|____|_________|________________________|______________|\n"
+	    				"|105 | OFC     | OCEANIA                |     1966     |\n"
+						"|____|_________|________________________|______________|\n"
+			   			"\nIngrese una opcion: ",
+						"\nERROR: numero invalido\n", 100, 105, 3);
 				retorno = 0;//Si cancelo la operación
 				confirmacion = PedirEntero("Nueva confederacion lista para ser cargada ¿Desea guardar los cambios? 1 si 0 no: ",
 						"ERROR: Nueva confederacion lista para ser cargada ¿Desea guardar los cambios? 1 si 0 no: ", 0, 1);
@@ -307,38 +325,38 @@ int ModificarJugador(eJugador jugadores[], int tam, int opcion) {
 					retorno = 1;//Salió todo bien
 		    		if(!respuestaMenu) {
 		    			switch(opcion) {
-		    			case 0:
-		    				jugadores[indiceAModificar].idConfederacion.id = 0;
+		    			case 100:
+		    				jugadores[indiceAModificar].idConfederacion.id = 100;
 		    				jugadores[indiceAModificar].idConfederacion.anioCreacion = 1916;
 		    				strcpy(jugadores[indiceAModificar].idConfederacion.nombre, "CONMEBOL");
 		    				strcpy(jugadores[indiceAModificar].idConfederacion.region, "SUDAMERICA");
 		    				break;
-		    			case 1:
-		    				jugadores[indiceAModificar].idConfederacion.id = 1;
+		    			case 101:
+		    				jugadores[indiceAModificar].idConfederacion.id = 101;
 		    				jugadores[indiceAModificar].idConfederacion.anioCreacion = 1954;
 		    				strcpy(jugadores[indiceAModificar].idConfederacion.nombre, "UEFA");
 		    				strcpy(jugadores[indiceAModificar].idConfederacion.region, "EUROPA");
 		    				break;
-		    			case 2:
-		    				jugadores[indiceAModificar].idConfederacion.id = 2;
+		    			case 102:
+		    				jugadores[indiceAModificar].idConfederacion.id = 102;
 		    				jugadores[indiceAModificar].idConfederacion.anioCreacion = 1954;
 		    				strcpy(jugadores[indiceAModificar].idConfederacion.nombre, "AFC");
 		    				strcpy(jugadores[indiceAModificar].idConfederacion.region, "ASIA");
 		    				break;
-		    			case 3:
-		    				jugadores[indiceAModificar].idConfederacion.id = 3;
+		    			case 103:
+		    				jugadores[indiceAModificar].idConfederacion.id = 103;
 		    				jugadores[indiceAModificar].idConfederacion.anioCreacion = 1957;
 		    				strcpy(jugadores[indiceAModificar].idConfederacion.nombre, "CAF");
 		    				strcpy(jugadores[indiceAModificar].idConfederacion.region, "AFRICA");
 		    				break;
-		    			case 4:
-		    				jugadores[indiceAModificar].idConfederacion.id = 4;
+		    			case 104:
+		    				jugadores[indiceAModificar].idConfederacion.id = 104;
 		    				jugadores[indiceAModificar].idConfederacion.anioCreacion = 1961;
 		    				strcpy(jugadores[indiceAModificar].idConfederacion.nombre, "CONCACAF");
 		    				strcpy(jugadores[indiceAModificar].idConfederacion.region, "NORTE Y CENTRO AMERICA");
 		    				break;
-		    			case 5:
-		    				jugadores[indiceAModificar].idConfederacion.id = 5;
+		    			case 105:
+		    				jugadores[indiceAModificar].idConfederacion.id = 105;
 		    				jugadores[indiceAModificar].idConfederacion.anioCreacion = 1966;
 		    				strcpy(jugadores[indiceAModificar].idConfederacion.nombre, "OFC");
 		    				strcpy(jugadores[indiceAModificar].idConfederacion.region, "OCEANIA");
@@ -364,19 +382,17 @@ int ModificarJugador(eJugador jugadores[], int tam, int opcion) {
 }
 
 /**
- * \fn int BajaLibro(eLibro[], int)
+ * \fn int Baja(eJugador[], int)
  * \brief
  *
- * \param libros
+ * \param jugadores
  * \param tam
  * \return
  *
- * Esta funcion da de baja un libro.
- * Primero pide que ingreses el codigo del libro que deseas borrar mediante
- * la funcion PedirEntero, luego busca el libro por la funcion BuscarLibro
+ * Esta funcion da de baja un jugador.
+ * Primero pide que ingreses el codigo del jugador que deseas borrar mediante
+ * la funcion PedirEntero, luego busca el jugador por la funcion BuscarJugador
  * si lo encuentra deja un espacio vacio y retorna 1 de lo contrario retorna 0.
- *
- *
  */
 int Baja(eJugador jugadores[],int tam) {
 	int idABorrar;
@@ -397,16 +413,16 @@ int Baja(eJugador jugadores[],int tam) {
 }
 
 /**
- * \fn int VerificarLleno(eLibro[], int)
+ * \fn int VerificarLleno(eJugador[], int)
  * \brief
  *
- * \param libros
+ * \param jugadores
  * \param tam
  * \return
  *
  * Esta funcion sirve para saber si hay un espacio libre.
  * La funcion recorre el for verificando si el estado del
- * libro esta lleno si lo esta retornara 1, de lo contrario
+ * jugador esta lleno si lo esta retornara 1, de lo contrario
  * retornara 0.
  */
 int VerificarLleno(eJugador jugadores[],int tam) {
@@ -425,13 +441,13 @@ int VerificarLleno(eJugador jugadores[],int tam) {
 }
 
 /**
- * \fn void MostrarLibros(eLibro[], int)
+ * \fn void MostrarJugadores(eJugador[], int)
  * \brief
  *
- * \param libros
+ * \param jugadores
  * \param tam
  *
- * Esta funcion imprime todos los libros con sus datos
+ * Esta funcion imprime todos los jugadores con sus datos
  * siempre y cuando existan, esto lo verifica con la funcion
  * VerificarLleno, la funcion no retornada nada.
  */
@@ -461,16 +477,15 @@ void MostrarJugadores(eJugador jugadores[], int tam) {
 }
 
 /**
- * \fn void OrdenarImporteYTitulo(eLibro[], int)
+ * \fn void OrdenarIdYMostrarJugador(eJugador[], int)
  * \brief
  *
- * \param libros
+ * \param jugadores
  * \param tam
  *
- * Esta funcion ordena los libros primero por Importe de manera
- * descendente y luego por Titulo de manera ascendente.
+ * Esta funcion ordena los jugadores primero por Id y los muestra.
  */
-void OrdenarImporteYTitulo(eJugador jugadores[], int tam) {
+void OrdenarIdYMostrarJugador(eJugador jugadores[], int tam) {
 	eJugador aux;
 
 	for (int i = 0; i < tam - 1; ++i) {
@@ -482,9 +497,20 @@ void OrdenarImporteYTitulo(eJugador jugadores[], int tam) {
 			}
 		}
 	}
+	MostrarJugadores(jugadores, tam);
 }
 
-void OrdenarDosCadenas(eJugador jugadores[], int tam) {
+/**
+ * \fn void OrdenarDosCadenas(eJugador[], int)
+ * \brief
+ *
+ * \param jugadores
+ * \param tam
+ *
+ * Se ordena por nombre de confederacion y en el caso de igualdad
+ * se ordena por nombre de jugador.
+ */
+void OrdenarNombreConfederacionYJugador(eJugador jugadores[], int tam) {
 	eJugador aux;
 
 	for (int i = 0; i < tam - 1; ++i) {
@@ -508,6 +534,16 @@ void OrdenarDosCadenas(eJugador jugadores[], int tam) {
 	MostrarJugadores(jugadores, tam);
 }
 
+/**
+ * \fn void MostrarConfederacionJugador(eJugador[], int, char[])
+ * \brief
+ *
+ * \param jugadores
+ * \param tam
+ * \param confederacion
+ *
+ *
+ */
 void MostrarConfederacionJugador(eJugador jugadores[], int tam, char confederacion[]) {
 	if(VerificarLleno(jugadores, tam) == 1) {
 
@@ -529,6 +565,15 @@ void MostrarConfederacionJugador(eJugador jugadores[], int tam, char confederaci
 	   }
 }
 
+/**
+ * \fn void ListarConfederacionJugador(eJugador[], int)
+ * \brief
+ *
+ * \param jugadores
+ * \param tam
+ *
+ * Lista todos los jugadores de cada Confederacion.
+ */
 void ListarConfederacionJugador(eJugador jugadores[], int tam) {
 	MostrarConfederacionJugador(jugadores, CANTIDAD, "CONMEBOL");
 	MostrarConfederacionJugador(jugadores, CANTIDAD, "UEFA");
@@ -538,6 +583,16 @@ void ListarConfederacionJugador(eJugador jugadores[], int tam) {
 	MostrarConfederacionJugador(jugadores, CANTIDAD, "OFC");
 }
 
+/**
+ * \fn int TotalSalarios(eJugador[], int)
+ * \brief
+ *
+ * \param jugadores
+ * \param tam
+ * \return
+ *
+ * Saca los salarios totales.
+ */
 int TotalSalarios(eJugador jugadores[], int tam) {
 	int salarioTotal = 0;
 
@@ -549,17 +604,17 @@ int TotalSalarios(eJugador jugadores[], int tam) {
 }
 
 /**
- * \fn float Promedio(eLibro[], int)
+ * \fn float Promedio(eJugador[], int)
  * \brief
  *
- * \param libros
+ * \param jugadores
  * \param tam
  * \return
  *
- * Esta funcion recorre la sentencia for si el importe es mayor a 0
- * sumara 1 al contador, luego sacara el promedio pasando a float
- * el retorno de la funcion Sumatoria y dividiendo por la variable
- * cantidadLibros para luego retornar el promedio.
+ * Esta funcion recorre la sentencia for contando los jugadores,
+ * luego sacara el promedio pasando a float el retorno de la
+ * funcion Sumatoria y dividiendo por la variable cantidadJugadores
+ * para luego retornar el promedio.
  */
 float Promedio(eJugador jugadores[], int tam) {
 	float promedio;
@@ -577,17 +632,16 @@ float Promedio(eJugador jugadores[], int tam) {
 }
 
 /**
- * \fn int SuperiorPromedio(eLibro[], int)
+ * \fn int SuperiorPromedio(eJugador[], int)
  * \brief
  *
- * \param libros
+ * \param jugadores
  * \param tam
  * \return
  *
- * Esta funcion sirve para saber que libro supera el promedio de importe.
- * La funcion recorre el for verificiando si el libro es mayor al promedio,
- * si es asi suma uno a la variable contadorLibros y luego la retorna.
- *
+ * Esta funcion sirve para saber que jugadores superan el promedio.
+ * La funcion recorre el for verificiando si el jugador es mayor al promedio,
+ * si es asi suma uno a la variable contadorJugadores y luego la retorna.
  */
 int SuperiorPromedio(eJugador jugadores[], int tam) {
 	int contadorJugadores = 0;
@@ -601,6 +655,16 @@ int SuperiorPromedio(eJugador jugadores[], int tam) {
 	return contadorJugadores;
 }
 
+/**
+ * \fn void MostrarSalario(eJugador[], int)
+ * \brief
+ *
+ * \param jugadores
+ * \param tam
+ *
+ * Muestra el total de todos los salarios, el promedio total y la cantidad
+ * de juegadores que cobran mas que el promedio.
+ */
 void MostrarSalario(eJugador jugadores[], int tam) {
 	int salarioTotal = 0;
 	float promedio = 0;
@@ -614,6 +678,21 @@ void MostrarSalario(eJugador jugadores[], int tam) {
 			,salarioTotal , promedio, mayorPromedio);
 }
 
+
+/**
+ * \fn int CompararMayorNumero(int, int, int, int, int, int)
+ * \brief
+ *
+ * \param numeroUno
+ * \param numeroDos
+ * \param numeroTres
+ * \param numeroCuatro
+ * \param numeroCinco
+ * \param numeroSeis
+ * \return
+ *
+ * Compara seis numeros para retornar el mayor.
+ */
 int CompararMayorNumero (int numeroUno, int numeroDos, int numeroTres, int numeroCuatro, int numeroCinco, int numeroSeis) {
 	int opcion;
 
@@ -649,6 +728,16 @@ int CompararMayorNumero (int numeroUno, int numeroDos, int numeroTres, int numer
 	return opcion;
 }
 
+/**
+ * \fn void ConfederacionMayorContratos(eJugador[], int)
+ * \brief
+ *
+ * \param jugadores
+ * \param tam
+ *
+ * Compara los años totales de contrato de cada confederacion para mostrar
+ * la que tiene mas años de contratos totales.
+ */
 void ConfederacionMayorContratos(eJugador jugadores[], int tam) {
 	char confederacionMayorContrato[20];
 	int mayorContratos;
@@ -725,6 +814,16 @@ void ConfederacionMayorContratos(eJugador jugadores[], int tam) {
 	printf("La confederacion con mayor cantidad de años de contrato es %s con una cantidad de %d años de contratos.\n", confederacionMayorContrato, mayorContratos);
 }
 
+/**
+ * \fn float calcularPorcentajeJugador(int, int)
+ * \brief
+ *
+ * \param totalJugadores
+ * \param jugadoresConfederacion
+ * \return
+ *
+ * Saca el porcentaje de jugadores de una confederacion y luego lo retorna.
+ */
 float calcularPorcentajeJugador (int totalJugadores, int jugadoresConfederacion) {
 	float porcentaje;
 
@@ -733,6 +832,16 @@ float calcularPorcentajeJugador (int totalJugadores, int jugadoresConfederacion)
 	return porcentaje;
 }
 
+/**
+ * \fn void InformarPorcentajeJugadores(eJugador[], int)
+ * \brief
+ *
+ * \param jugadores
+ * \param tam
+ *
+ * Saca el porcentajes de jugadores por confederacion y luego
+ * los muestra.
+ */
 void InformarPorcentajeJugadores (eJugador jugadores[], int tam) {
 	int contadorConmebol = 0;
 	int contadorUefa = 0;
@@ -794,6 +903,16 @@ void InformarPorcentajeJugadores (eJugador jugadores[], int tam) {
 			porcentajeConmebol, porcentajeUefa, porcentajeAfc, porcentajeCaf, porcentajeConcacaf, porcentajeOfc);
 }
 
+/**
+ * \fn void RegionMasJugadores(eJugador[], int)
+ * \brief
+ *
+ * \param jugadores
+ * \param tam
+ *
+ * Verifica cual es la region con mas jugadores y luego
+ * los muestra.
+ */
 void RegionMasJugadores(eJugador jugadores[], int tam) {
 	char regionMasJugadores[20];
 	int cantidadJugadores;
